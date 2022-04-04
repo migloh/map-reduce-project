@@ -66,9 +66,8 @@ public class WordCount implements MapReduce {
           wc.executeMap("data.txt", "result.txt");	
      */
           Collection<String> blocks = new ArrayList<String>();
-          blocks.add("result1.txt");
-          blocks.add("result2.txt");
-          wc.executeReduce(blocks, "finalresult.txt");
-       
+          blocks.add("src/main/java/result1.txt");
+          blocks.add("src/main/java/result2.txt");
+          wc.executeReduce(blocks, "src/main/java/finalresult.txt");
      }
 }
