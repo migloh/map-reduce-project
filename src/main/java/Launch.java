@@ -3,13 +3,11 @@ package main.java;
 import java.io.File;
 import java.rmi.Naming;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Scanner;
 
 public class Launch {
    public static void main(String[] args) {
       WordCount wc = new WordCount();
-//      new ArrayList();
 
       try {
          ArrayList<Integer> socketPorts = new ArrayList<>();
@@ -27,10 +25,16 @@ public class Launch {
             dt.start();
          }
          cb.waitForAll();
-         File f = new File("main/resources/res8081.txt");
-         Scanner scannerFile = new Scanner(f);
-         String textLine = scannerFile.nextLine();
-         System.out.println("The res est: " + textLine);
+         for(int i:socketPorts) {
+            File f = new File("main/resources/res"+ i +".txt");
+            Scanner scannerFile = new Scanner(f);
+            System.out.println("Fichier main/resources/res"+ i +".txt");
+            while (scannerFile.hasNextLine()){
+               String textLine = scannerFile.nextLine();
+               System.out.println(textLine);
+            }
+            scannerFile.close();
+         }
       } catch (Exception e) {
          e.printStackTrace();
       }
