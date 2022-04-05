@@ -1,8 +1,10 @@
 package main.java;
 
+import java.io.File;
 import java.rmi.Naming;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Scanner;
 
 public class Launch {
    public static void main(String[] args) {
@@ -21,11 +23,16 @@ public class Launch {
          CallBack cb = (CallBack)Naming.lookup("rmi://localhost:8080/callback");
 
          for(int rmiP:rmiPort) {
-            new DaemonThread(wc, rmiP, cb);
+            DaemonThread dt = new DaemonThread(wc, rmiP, cb);
+            dt.start();
          }
-
-      } catch (Exception var10) {
-         var10.printStackTrace();
+         cb.waitForAll();
+         File f = new File("main/resources/res8081.txt");
+         Scanner scannerFile = new Scanner(f);
+         String textLine = scannerFile.nextLine();
+         System.out.println("The res est: " + textLine);
+      } catch (Exception e) {
+         e.printStackTrace();
       }
 
    }

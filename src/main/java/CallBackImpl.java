@@ -14,10 +14,13 @@ public class CallBackImpl extends UnicastRemoteObject implements CallBack {
       this.notify();
    }
 
-   public synchronized void waitForAll() throws InterruptedException {
-      for(int var1 = 0; var1 < this.nbnode; ++var1) {
-         this.wait();
+   public synchronized void waitForAll() throws InterruptedException, RemoteException {
+      try{
+         for(int var1 = 0; var1 < this.nbnode; ++var1) {
+            this.wait();
+         }
+      } catch (Exception e) {
+         e.printStackTrace();
       }
-
    }
 }

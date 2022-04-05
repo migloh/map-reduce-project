@@ -21,8 +21,8 @@ public class Split {
             Socket socketNode = new Socket("localhost", initPort);
             DataOutputStream splitFile = new DataOutputStream(socketNode.getOutputStream());
             portList.add(initPort);
-            String var8 = scannerFile.nextLine();
-            splitFile.writeUTF(var8);
+            String textLine = scannerFile.nextLine();
+            splitFile.writeUTF(textLine);
             ++initPort;
             splitFile.close();
             socketNode.close();
