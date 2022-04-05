@@ -1,37 +1,39 @@
 package main.java;
 
-import java.io.*;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Split {
-    public static void main(String[] args) {
-//    public Split() {
-        try {
-            ArrayList<Integer> portList = new ArrayList<Integer>();
-            int initPort = 8080;
-            String pathToData = "main/resources/data.txt"; // main/resources/data.txt
-            File myObj = new File(pathToData);
-            Scanner myReader = new Scanner(myObj);
-            while (myReader.hasNextLine()) {
-//                Node daemon = new Node(initPort, "main/resources/request" + Integer.toString(initPort) + ".txt");
-//                daemon.start();
-                Socket socketOrigin = new Socket("localhost", initPort);
-                DataOutputStream output = new DataOutputStream(socketOrigin.getOutputStream());
-                portList.add(initPort);
-                String data = myReader.nextLine();
-                output.writeUTF(data);
-                initPort++;
-                output.close();
-                socketOrigin.close();
-            }
-            myReader.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+   public static void main(String[] var0) {
+      try {
+         ArrayList<Integer> portList = new ArrayList<Integer>();
+         int initPort = 8081;
+         String dataFile = "main/resources/data.txt";
+         File f = new File(dataFile);
+         Scanner scannerFile = new Scanner(f);
+
+         while(scannerFile.hasNextLine()) {
+            Socket socketNode = new Socket("localhost", initPort);
+            DataOutputStream splitFile = new DataOutputStream(socketNode.getOutputStream());
+            portList.add(initPort);
+            String var8 = scannerFile.nextLine();
+            splitFile.writeUTF(var8);
+            ++initPort;
+            splitFile.close();
+            socketNode.close();
+         }
+         scannerFile.close();
+      } catch (FileNotFoundException e) {
+         System.out.println("An error occurred.");
+         e.printStackTrace();
+      } catch (IOException e) {
+         e.printStackTrace();
+      }
+
+   }
 }
