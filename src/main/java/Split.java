@@ -9,7 +9,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Split {
-   public static void main(String[] var0) {
+//   public static void main(String[] var0) {
+   public void run() {
       try {
          ArrayList<Integer> portList = new ArrayList<Integer>();
          int initPort = 8081;

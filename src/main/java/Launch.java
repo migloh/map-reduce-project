@@ -8,7 +8,8 @@ import java.util.Collection;
 import java.util.Scanner;
 
 public class Launch {
-   public static void main(String[] args) {
+//   public static void main(String[] args) {
+   public void run() {
       WordCount wc = new WordCount();
       Collection<String> blocks = new ArrayList<>();
 

@@ -9,6 +9,7 @@ import java.rmi.registry.LocateRegistry;
 public class Node {
    public static void main(String[] args) {
       int portNo = Integer.parseInt(args[0]);
+      String fileName = "main/resources/split" + portNo + ".txt";
       String splitLine = "";
       ServerSocket serverSocket = null;
       Socket socketNode = null;
@@ -27,7 +28,7 @@ public class Node {
               socketNode = serverSocket.accept();
               DataInputStream inputStream = new DataInputStream(new BufferedInputStream(socketNode.getInputStream()));
               splitLine = inputStream.readUTF();
-              BufferedWriter buffered = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(args[1])));
+              BufferedWriter buffered = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileName)));
               buffered.write(splitLine);
               buffered.newLine();
               buffered.close();
