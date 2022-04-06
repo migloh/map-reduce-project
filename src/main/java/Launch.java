@@ -4,11 +4,13 @@ import java.io.*;
 import java.net.Socket;
 import java.rmi.Naming;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Scanner;
 
 public class Launch {
    public static void main(String[] args) {
       WordCount wc = new WordCount();
+      Collection<String> blocks = new ArrayList<>();
 
       try {
          ArrayList<Integer> socketPorts = new ArrayList<>();
@@ -26,23 +28,14 @@ public class Launch {
             dt.start();
          }
          cb.waitForAll();
-//         for(int i:socketPorts) {
-//            File f = new File("main/resources/res"+ i +".txt");
-//            Scanner scannerFile = new Scanner(f);
-//            System.out.println("Fichier main/resources/res"+ i +".txt");
-//            while (scannerFile.hasNextLine()){
-//               String textLine = scannerFile.nextLine();
-//               System.out.println(textLine);
-//            }
-//            scannerFile.close();
-//         }
          System.out.println("Ready");
          for (int porte : socketPorts) {
+            String fileName = "main/resources/res" + porte + "received.txt";
+            blocks.add(fileName);
             Socket sk = new Socket("localhost", porte+6);
-//            System.out.println("Got Socketation");
             DataInputStream inputStream = new DataInputStream(new BufferedInputStream(sk.getInputStream()));
             BufferedWriter bw = new BufferedWriter(
-                    new OutputStreamWriter(new FileOutputStream("main/resources/res" + porte + "received.txt")));
+                    new OutputStreamWriter(new FileOutputStream(fileName)));
             String lmeo;
             for (int i=0; i<3; i++) {
                if (porte == 8083 && i == 1) {
@@ -57,6 +50,8 @@ public class Launch {
             inputStream.close();
             sk.close();
          }
+
+         wc.executeReduce(blocks, "main/resources/finalresult.txt");
       } catch (Exception e) {
          e.printStackTrace();
       }
