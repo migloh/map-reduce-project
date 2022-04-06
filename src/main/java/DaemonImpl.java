@@ -9,5 +9,6 @@ public class DaemonImpl extends UnicastRemoteObject implements Daemon {
 
    public void call(MapReduce m, String blockin, String blockout, CallBack cb) throws RemoteException {
       m.executeMap(blockin, blockout);
+      cb.completed();
    }
 }

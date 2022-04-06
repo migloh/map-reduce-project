@@ -17,7 +17,7 @@ public class DaemonThread extends Thread {
       try {
          Daemon daemonNode = (Daemon)Naming.lookup("rmi://localHost:" + this.nodePort + "/daemon");
          daemonNode.call(wc, "main/resources/split" + (this.nodePort - 3) + ".txt", "main/resources/res" + (this.nodePort - 3) + ".txt", cb);
-         cb.completed();
+//         cb.completed();
       } catch (Exception e) {
          e.printStackTrace();
       }
